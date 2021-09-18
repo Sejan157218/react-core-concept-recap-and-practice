@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
   
@@ -11,6 +11,7 @@ function App() {
       <Blog heading = 'Heading 1' author = 'Sejan'></Blog>
       <Blog heading = 'Heading 2' author = 'Sajal'></Blog>
       <Blog heading = 'Heading 3' author = 'ASH'></Blog>
+      <Comment></Comment>
     </div>
   );
 }
@@ -57,6 +58,32 @@ function Mobile(){
       <button onClick={BatteryDown}>Battery Down</button>
     </div>
   )
+}
+
+function Comment(){
+  const [users,setUsers] =useState([])
+  useEffect(()=>{
+    fetch('https://jsonplaceholder.typicode.com/comments')
+      .then(res=>res.json())
+      .then(data=>setUsers(data.splice(0,50)))
+  },[])
+  return (
+    <div>
+      {
+        users.map(user=><ShowUser name={user.name} email={user.email} body={user.body} id={user.id}></ShowUser>)
+      }
+    </div>
+  )
+}
+function ShowUser(props){
+    return (
+      <div className="blog">
+      <h1>{props.id}</h1>
+      <h2>Name  : {props.name}</h2>
+      <h2>Email : {props.email}</h2>
+      <p>{props.body}</p>
+    </div>
+    )
 }
 
 export default App;
