@@ -1,10 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
 
 function App() {
   
   return (
     <div className="App">
+      <Mobile></Mobile>
       <ArticleWithJSX></ArticleWithJSX>
       <Blog heading = 'Heading 1' author = 'Sejan'></Blog>
       <Blog heading = 'Heading 2' author = 'Sajal'></Blog>
@@ -31,6 +33,28 @@ function Blog(props){
     <div className="blog">
       <h2>Heading  : {props.heading}</h2>
       <h2>Author : {props.author}</h2>
+    </div>
+  )
+}
+
+function Mobile(){
+  const [charge,setCharge]=useState(100);
+  
+  const BatteryUp = ()=>{
+    if(charge<100){
+      setCharge(charge+10)
+    }
+  };
+  const BatteryDown = ()=>{
+    if(charge>0){
+      setCharge(charge-10)
+    }
+  };
+  return(
+    <div>
+      <h2>Mobile Battery Charge : {charge} %</h2>
+      <button onClick={BatteryUp}>Battery UP</button>
+      <button onClick={BatteryDown}>Battery Down</button>
     </div>
   )
 }
